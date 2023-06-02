@@ -1,4 +1,4 @@
-export const issueBody = ```
+export const issueBody = `
 ### issue_link
 
 https://github.com/flutter/flutter/issues/127506
@@ -38,7 +38,7 @@ yes
 ### Validation Steps
 
 Validated on presubmit, postsubmit and manual runs.
-```
+`
 
 export const parsedIssue = {
   issue_link: "https://github.com/flutter/flutter/issues/127506",
