@@ -1,3 +1,8 @@
+/**
+ * Parses a GitHub issue body with markdown headings and converts it into a JSON object.
+ * @param {string} body - The GitHub issue body text.
+ * @returns {Object} - The parsed JSON object.
+ */
 function parseGithubIssueMarkdown(body) {
   const lines = body.split('\n');
   const json = {};
