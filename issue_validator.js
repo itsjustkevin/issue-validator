@@ -31,13 +31,20 @@ function parseGithubIssueMarkdown(body) {
 function validateGithubIssue(json) {
   const errors = [];
 
-  // Check for missing or empty values for each key
   if (!json.issue_link || json.issue_link.trim() === '') {
     errors.push('Missing or empty value for "issue_link".');
   }
 
+  if (!isURL(json.issue_link)) {
+    errors.push('"issue_link" should be a proper link.')
+  }
+
   if (!json['Commit Hash'] || json['Commit Hash'].trim() === '') {
     errors.push('Missing or empty value for "Commit Hash".');
+  }
+
+  if (json['Commit Hash'].length !== 40) {
+    errors.push('Commit Hash must be 40 characters long.')
   }
 
   if (!json.Target || json.Target.trim() === '') {
@@ -77,6 +84,16 @@ function validateGithubIssue(json) {
   }
 
   return errors;
+}
+
+/**
+ * Checks if a string is a properly formed URL.
+ * @param {string} text - The string to check.
+ * @returns {boolean} - True if the string is a properly formed URL, false otherwise.
+ */
+function isURL(text) {
+  const urlPattern = /^(https?:\/\/)?([\w.-]+)\.([a-zA-Z]{2,})(:\d{2,5})?(\/\S*)?$/;
+  return urlPattern.test(text);
 }
 
 module.exports = {
