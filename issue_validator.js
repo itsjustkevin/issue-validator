@@ -36,7 +36,7 @@ function validateGithubIssue(json) {
   }
 
   if (!isURL(json["Issue Link"])) {
-    errors.push('"issue_link" should be a proper link.')
+    errors.push('"Issue Link" should be a proper URL.')
   }
 
   if (!json['Commit Hash'] || json['Commit Hash'].trim() === '') {
@@ -49,6 +49,10 @@ function validateGithubIssue(json) {
 
   if (!json["Target"] || json["Target"].trim() === '') {
     errors.push('Missing or empty value for "Target".');
+  }
+
+  if (json["Target"] !== 'beta' || 'stable') {
+    errors.push('"Target" must be "beta" or "stable".')
   }
 
   if (!json["PR Link"] || json["PR Link"].trim() === '') {
