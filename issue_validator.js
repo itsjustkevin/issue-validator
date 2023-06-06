@@ -31,11 +31,11 @@ function parseGithubIssueMarkdown(body) {
 function validateGithubIssue(json) {
   const errors = [];
 
-  if (!json.issue_link || json.issue_link.trim() === '') {
+  if (!json["Issue Link"] || json["Issue Link"].trim() === '') {
     errors.push('Missing or empty value for "issue_link".');
   }
 
-  if (!isURL(json.issue_link)) {
+  if (!isURL(json["Issue Link"])) {
     errors.push('"issue_link" should be a proper link.')
   }
 
@@ -47,11 +47,11 @@ function validateGithubIssue(json) {
     errors.push('Commit Hash must be 40 characters long.')
   }
 
-  if (!json.Target || json.Target.trim() === '') {
+  if (!json["Target"] || json["Target"].trim() === '') {
     errors.push('Missing or empty value for "Target".');
   }
 
-  if (!json.pr_link || json.pr_link.trim() === '') {
+  if (!json["PR Link"] || json["PR Link"].trim() === '') {
     errors.push('Missing or empty value for "pr_link".');
   }
 
