@@ -1,3 +1,5 @@
+const targets = ['beta', 'stable']
+
 /**
  * Parses a GitHub issue body with markdown headings and converts it into a JSON object.
  * @param {string} body - The GitHub issue body text.
@@ -44,19 +46,23 @@ function validateGithubIssue(json) {
   }
 
   if (json['Commit Hash'].length !== 40) {
-    errors.push('Commit Hash must be 40 characters long.')
+    errors.push('Commit Hash must be 40 characters long.');
   }
 
   if (!json["Target"] || json["Target"].trim() === '') {
     errors.push('Missing or empty value for "Target".');
   }
 
-  if (json["Target"] !== 'beta' || 'stable') {
-    errors.push('"Target" must be "beta" or "stable".')
+  if (!json["Target"] || (json["Target"] !== 'beta' && json["Target"] !== 'stable')) {
+    errors.push('Invalid value for "Target". The value should be either "beta" or "stable".');
   }
 
   if (!json["PR Link"] || json["PR Link"].trim() === '') {
-    errors.push('Missing or empty value for "pr_link".');
+    errors.push('Missing or empty value for "PR Link".');
+  }
+
+  if (!isURL(json["PR Link"])) {
+    errors.push('"PR Link" should be a proper URL.')
   }
 
   if (!json['Changelog Description'] || json['Changelog Description'].trim() === '') {
@@ -71,11 +77,11 @@ function validateGithubIssue(json) {
     errors.push('Missing or empty value for "Impact Description".');
   }
 
-  if (!json.Workaround || json.Workaround.trim() === '') {
+  if (!json["Workaround"] || json["Workaround"].trim() === '') {
     errors.push('Missing or empty value for "Workaround".');
   }
 
-  if (!json.Risk || json.Risk.trim() === '') {
+  if (!json["Risk"] || json["Risk"].trim() === '') {
     errors.push('Missing or empty value for "Risk".');
   }
 
